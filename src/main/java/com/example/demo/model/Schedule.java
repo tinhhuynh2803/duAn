@@ -39,7 +39,7 @@ public class Schedule {
 	
 	@OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Subject> subject;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "classroom_id", nullable = false)
 	private ClassRoom classRoom;

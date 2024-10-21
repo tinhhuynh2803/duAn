@@ -4,9 +4,11 @@ import com.example.demo.model.Course;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CourseServiceImpl implements ICourseService {
 
     @Autowired
