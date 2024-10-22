@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,11 +29,13 @@ public class SubjectAssignment {
 	
 	// Thiết lập mối quan hệ N:1 với Employee
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id")
+    @JsonBackReference
     private Employee employee; // Nhân viên đảm nhận môn học
     
     @ManyToOne
-    @JoinColumn(name = "subject_id", nullable = false)
+    @JoinColumn(name = "subject_id")
+    @JsonBackReference
     private Subject subject; // Môn học
     
     // Mối quan hệ 1:N với TeachingAssignment

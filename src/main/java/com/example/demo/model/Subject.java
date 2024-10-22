@@ -2,6 +2,9 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,29 +30,28 @@ public class Subject {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
+
 	private String subjectCode;
-	
-	@Column(nullable = false)
+
 	private String subjectName;
-	
-	@Column(nullable = false)
+
 	private Integer theoryHours;
-	
-	@Column(nullable = false)
+
 	private Integer practicalHours;
-	
-	@Column(nullable = false)
+
 	private Boolean isActive;
 	
 	@ManyToOne
-    @JoinColumn(name = "schedule_id", nullable = false)
-    private Schedule schedule;
+    @JoinColumn(name = "schedule_id")
+	@JsonIgnore // Ngăn không cho serialize Subject khi serialize Course
+	private Schedule schedule;
 	
 	@OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<Course> courses;
 	
 	// Mối quan hệ 1:N với SubjectAssignment
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
     private List<SubjectAssignment> subjectAssignments; // Danh sách phân công môn học
 }

@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,14 +30,17 @@ public class RegisterCourse {
     private LocalDate registrationDate;
 	
 	@ManyToOne
-    @JoinColumn(name = "student_id", nullable = false) // tên cột trong bảng
+    @JoinColumn(name = "student_id") // tên cột trong bảng
+    @JsonBackReference
     private Student student;
 	
 	@ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false) // tên cột trong bảng
+    @JoinColumn(name = "employee_id") // tên cột trong bảng
+    @JsonBackReference
     private Employee employee;
 	
 	@ManyToOne
-    @JoinColumn(name = "course_id", nullable = false) // tên cột trong bảng
+    @JoinColumn(name = "course_id") // tên cột trong bảng
+    @JsonBackReference
     private Course course;
 }

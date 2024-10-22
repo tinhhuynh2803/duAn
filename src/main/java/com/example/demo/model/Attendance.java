@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,10 +35,12 @@ public class Attendance {
 	
 	@ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
-    private Student student; // trường này để tham chiếu đến Student
+	@JsonBackReference
+	private Student student; // trường này để tham chiếu đến Student
 
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
+	@JsonBackReference
 	private Employee employee; // Tên thuộc tính là 'employee'
 
 

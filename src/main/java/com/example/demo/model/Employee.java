@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -58,11 +60,13 @@ public class Employee {
     // Mối quan hệ n:1 với EmployeeType
     @ManyToOne
     @JoinColumn(name = "employee_type_id", nullable = false)
+    @JsonBackReference
     private EmployeeType employeeType; // Kiểu nhân viên
     
     // Mối quan hệ n:1 với Major
     @ManyToOne
     @JoinColumn(name = "major_id", nullable = false)
+    @JsonBackReference
     private Major major; // Chuyên ngành của nhân viên
     
     // Mối quan hệ 1:1 với Image
@@ -72,13 +76,16 @@ public class Employee {
     
     // Mối quan hệ 1:N với TeachingAssignment
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<TeachingAssignment> teachingAssignments; // Danh sách phân công giảng dạy
 
     // Thiết lập mối quan hệ với RegisterCourse
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<RegisterCourse> registerCourses;
     
     // Thêm mối quan hệ với Attendance
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Attendance> attendances; // Danh sách attendance của nhân viên
 }

@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,13 +27,13 @@ public class ClassSession {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotNull(message = "Timeslot is required")
+
 	private LocalTime timeSlot;
 	
 	@Size(min = 3, max = 200, message = "Note must be between 3 and 200 characters")
 	private String note;
 	
 	@OneToMany(mappedBy = "classSession", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
     private List<Course> courses;
 }

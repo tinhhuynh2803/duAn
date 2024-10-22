@@ -3,6 +3,8 @@ package com.example.demo.model;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,25 +29,25 @@ public class Schedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = false)
+
 	private String schoolDay;
-	
-	@Column(nullable = false)
-	private LocalTime startTime;
-	
-	@Column(nullable = false)
-	private LocalTime endTime;
+
+	private Integer startTime;
+
+	private Integer endTime;
 	
 	@OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<Subject> subject;
 
 	@ManyToOne
-	@JoinColumn(name = "classroom_id", nullable = false)
+	@JoinColumn(name = "classroom_id")
+	@JsonBackReference
 	private ClassRoom classRoom;
 	
 	@ManyToOne // Nhiều schedule có thể thuộc về một course
-    @JoinColumn(name = "course_id", nullable = false) // Khóa ngoại liên kết đến Course
+    @JoinColumn(name = "course_id") // Khóa ngoại liên kết đến Course
+	@JsonBackReference
     private Course course; // Liên kết với Course
 	
 }

@@ -23,8 +23,7 @@ public class PermissionGroup {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = false)
+
     @NotBlank(message = "Name cannot be empty")  // Name không được để trống
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")  // Ràng buộc độ dài
     @Pattern(regexp = "^[A-Za-z0-9 ]+$", message = "Name can only contain alphanumeric characters and spaces")  // Ràng buộc ký tự

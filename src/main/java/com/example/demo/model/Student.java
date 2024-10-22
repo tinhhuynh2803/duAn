@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,37 +32,31 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = false)
+
 	private String fullName;
-	
-	@Column(nullable = false)
+
     private LocalDate dateOfBirth; // Ngày sinh
 
-    @Column(nullable = false)
     private String address; // Địa chỉ
 
-    @Column(nullable = false)
     private String phoneNumber; // Số điện thoại
 
-    @Column(nullable = false)
     private Boolean gender; // Giới tính (1: Nam, 0: Nữ)
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String nationalID; // Số chứng minh nhân dân
 
     @Email(message = "Email should be valid")
-    @Column(nullable = false, unique = true)
+    @Column( unique = true)
     private String email; // Email
 
-    @Column(nullable = false)
     private Boolean activate; // Trạng thái kích hoạt (1: Kích hoạt, 0: Không kích hoạt)
 
-    @Column(nullable = false, unique = true)
     private String studentCode; // Mã sinh viên
     
     @ManyToOne
     @JoinColumn(name = "degreelevel_id", nullable = false)
+    @JsonBackReference
     private DegreeLevel degreeLevel; // Cấp độ học
     
     @OneToOne(cascade = CascadeType.ALL)
@@ -70,13 +66,16 @@ public class Student {
     // Thiết lập mối quan hệ n:1 với CategoryStudent
     @ManyToOne
     @JoinColumn(name = "studentcategory_id", nullable = false) // Tên cột trong bảng Student để lưu trữ ID danh mục
+    @JsonBackReference
     private StudentCategory studentCategory; // Danh mục sinh viên
     
     // Thiết lập mối quan hệ với RegisterCourse
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<RegisterCourse> registerCourses;
     
     // Thêm mối quan hệ với Attendance
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Attendance> attendances; // Danh sách attendance của sinh viên
 }

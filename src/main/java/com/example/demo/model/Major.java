@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,11 +25,11 @@ public class Major {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = false)
+
 	private String majorName;
 	
 	// Thiết lập mối quan hệ 1:N với Employee
     @OneToMany(mappedBy = "major", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
     private List<Employee> employees; // Danh sách nhân viên thuộc chuyên ngành này
 }

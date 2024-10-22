@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,13 +26,13 @@ public class DegreeLevel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = false)
+
 	private String qualificationName;
 	
 	@Size(min = 3, max = 200, message = "Note must be between 3 and 200 characters")
 	private String note;
 	
 	@OneToMany(mappedBy = "degreeLevel", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
     private Set<Student> students; // Danh sách sinh viên thuộc cấp độ này
 }

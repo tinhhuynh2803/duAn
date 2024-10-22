@@ -37,6 +37,7 @@ public class SubjectController {
         Subject subject1 = iSubjectService.updateSubject(id, subject);
         return ResponseEntity.ok(subject1);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Subject> deleteSubject(@PathVariable Long id){
         iSubjectService.deleteSubject(id);

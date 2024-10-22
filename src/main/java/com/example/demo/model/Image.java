@@ -23,11 +23,9 @@ public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = false)
+
 	private String imageName;
-	
-	@Column(nullable = false)
+
 	private String imageUrl;
 	
 	@OneToOne(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,14 +23,13 @@ public class Tuition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = false)
+
 	private Double originalPrice;
-	
-	@Column(nullable = false)
+
 	private Double promotionalPrice;
 	
 	@ManyToOne // Nhiều tuition có thể thuộc về một course
-    @JoinColumn(name = "course_id", nullable = false) // Khóa ngoại liên kết đến Course
+    @JoinColumn(name = "course_id") // Khóa ngoại liên kết đến Course
+	@JsonBackReference
     private Course course; // Liên kết với Course
 }

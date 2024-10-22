@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +29,6 @@ public class ClassRoom {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
 	@NotBlank(message = "Name cannot be empty")  // Name không được để trống
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")  // Ràng buộc độ dài
     @Pattern(regexp = "^[A-Za-z0-9 ]+$", message = "Name can only contain alphanumeric characters and spaces")  // Ràng buộc ký tự
@@ -38,5 +38,6 @@ public class ClassRoom {
 	private String note;
 	
 	@OneToMany(mappedBy = "classRoom", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<Schedule> schedules;
 }
