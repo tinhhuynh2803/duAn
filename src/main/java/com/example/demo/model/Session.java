@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "classsession")
-public class ClassSession {
+@Table(name = "Session")
+public class Session {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +30,10 @@ public class ClassSession {
 
 	private LocalTime timeSlot;
 	
-	@Size(min = 3, max = 200, message = "Note must be between 3 and 200 characters")
-	private String note;
-	
-	@OneToMany(mappedBy = "classSession", cascade = CascadeType.ALL, orphanRemoval = true)
+	@NotNull(message = "SessionName is not null")
+	private String sessionName;
+
+	@OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
-    private List<Course> courses;
+	private List<Course> courses;
 }

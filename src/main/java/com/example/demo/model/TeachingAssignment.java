@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,8 +39,8 @@ public class TeachingAssignment {
     
     // Mối quan hệ N:1 với SubjectAssignment
     @ManyToOne
-    @JoinColumn(name = "subjectassignment_id") // Khóa ngoại liên kết đến SubjectAssignment
+    @JoinColumn(name = "teachingAbility_id") // Khóa ngoại liên kết đến SubjectAssignment
     @JsonBackReference
-    private SubjectAssignment subjectAssignment; // Môn học được phân công giảng dạy
+    private TeachingAbility teachingAbility; // Môn học được phân công giảng dạy
 
 }

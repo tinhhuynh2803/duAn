@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,17 +18,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "studentcategory")
-public class StudentCategory {
+@Table(name = "StudentType")
+public class StudentType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String studentCategoryName;
+	private String studentTypeName;
 	
 	// Thiết lập mối quan hệ 1:n với Student
-    @OneToMany(mappedBy = "studentCategory", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "studentType", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
-    private List<Student> students; // Danh sách sinh viên thuộc danh mục này
+	private List<Student> students;	// Danh sách sinh viên thuộc danh mục này
 }

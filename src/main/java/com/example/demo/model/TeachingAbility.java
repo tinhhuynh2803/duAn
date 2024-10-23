@@ -20,28 +20,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "subjectassignment")
-public class SubjectAssignment {
+@Table(name = "TeachingAbility")
+public class TeachingAbility {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	// Thiết lập mối quan hệ N:1 với Employee
+
     @ManyToOne
     @JoinColumn(name = "employee_id")
     @JsonBackReference
     private Employee employee; // Nhân viên đảm nhận môn học
-    
+
+
     @ManyToOne
-    @JoinColumn(name = "subject_id")
+    @JoinColumn(name = "topics_id")
     @JsonBackReference
-    private Subject subject; // Môn học
-    
+    private Topics topics; // Môn học
+
     // Mối quan hệ 1:N với TeachingAssignment
-    @OneToMany(mappedBy = "subjectAssignment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "teachingAbility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TeachingAssignment> teachingAssignments; // Danh sách phân công giảng dạy
-    
-    
+
+
 
 }

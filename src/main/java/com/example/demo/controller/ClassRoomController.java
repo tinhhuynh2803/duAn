@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ClassRoom;
-import com.example.demo.model.Subject;
 import com.example.demo.service.IClassRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

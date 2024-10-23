@@ -26,11 +26,9 @@ public class Attendance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = false)
+
 	private LocalDate dateOfRecognition;
-	
-	@Size(min = 3, max = 200, message = "Note must be between 3 and 200 characters")
+
 	private String note;
 	
 	@ManyToOne
@@ -38,10 +36,10 @@ public class Attendance {
 	@JsonBackReference
 	private Student student; // trường này để tham chiếu đến Student
 
-	@ManyToOne
-	@JoinColumn(name = "employee_id")
-	@JsonBackReference
-	private Employee employee; // Tên thuộc tính là 'employee'
 
+	@ManyToOne
+	@JoinColumn(name = "classSchedule_id", nullable = false)
+	@JsonBackReference
+	private ClassSchedule classSchedule; // trường này để tham chiếu đến ClassSchedule
 
 }

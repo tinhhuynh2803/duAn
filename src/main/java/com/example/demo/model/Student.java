@@ -58,21 +58,23 @@ public class Student {
     @JoinColumn(name = "degreelevel_id", nullable = false)
     @JsonBackReference
     private DegreeLevel degreeLevel; // Cấp độ học
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id") // Tên cột trong bảng Student để lưu trữ ID hình ảnh
-    private Image image; // Hình ảnh của sinh viên
+
+    // Mối quan hệ n:1 với Image
+    @ManyToOne
+    @JoinColumn(name = "image_id", nullable = false)
+    @JsonBackReference
+    private Image image; // hình ảnh của nhân viên
     
     // Thiết lập mối quan hệ n:1 với CategoryStudent
     @ManyToOne
-    @JoinColumn(name = "studentcategory_id", nullable = false) // Tên cột trong bảng Student để lưu trữ ID danh mục
+    @JoinColumn(name = "student_type_id")
     @JsonBackReference
-    private StudentCategory studentCategory; // Danh mục sinh viên
+    private StudentType studentType; // Danh mục sinh viên
     
     // Thiết lập mối quan hệ với RegisterCourse
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private Set<RegisterCourse> registerCourses;
+    private Set<TuitionFee> registerCours;
     
     // Thêm mối quan hệ với Attendance
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)

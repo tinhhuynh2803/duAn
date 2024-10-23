@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -28,11 +29,10 @@ public class DegreeLevel {
 	private Long id;
 
 	private String qualificationName;
-	
-	@Size(min = 3, max = 200, message = "Note must be between 3 and 200 characters")
+
 	private String note;
-	
-	@OneToMany(mappedBy = "degreeLevel", cascade = CascadeType.ALL, orphanRemoval = true)
+
+	@OneToMany(mappedBy = "degreeLevel", cascade = CascadeType.ALL, orphanRemoval = true) // Mối quan hệ 1:N với Employee
 	@JsonManagedReference
-    private Set<Student> students; // Danh sách sinh viên thuộc cấp độ này
+	private List<Employee> employees; // Danh sách nhân viên
 }

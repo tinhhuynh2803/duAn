@@ -19,15 +19,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "registercourse")
-public class RegisterCourse {
+@Table(name = "TuitionFee")
+public class TuitionFee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotNull(message = "Registration date is required")
+
     private LocalDate registrationDate;
+
+    private LocalDate collectionDate;
+
+    private String note;
+
+    private Boolean collectedMoney;
+
+    private Boolean activate;
 	
 	@ManyToOne
     @JoinColumn(name = "student_id") // tên cột trong bảng
@@ -38,7 +45,7 @@ public class RegisterCourse {
     @JoinColumn(name = "employee_id") // tên cột trong bảng
     @JsonBackReference
     private Employee employee;
-	
+
 	@ManyToOne
     @JoinColumn(name = "course_id") // tên cột trong bảng
     @JsonBackReference

@@ -1,17 +1,12 @@
 package com.example.demo.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -27,16 +22,15 @@ public class Image {
 	private String imageName;
 
 	private String imageUrl;
-	
-	@OneToOne(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Student student; // Sinh viên liên kết với hình ảnh
-	
-	// Thiết lập mối quan hệ 1:1 với Employee
-    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Employee employee; // Nhân viên sở hữu hình ảnh này
-    
-    // Mối quan hệ 1:1 với Image
-    @OneToOne
-    @JoinColumn(name = "image_id", unique = true)
-    private Image image; // Hình ảnh của nhân viên
+
+    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Student> students;
+
+
+    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Employee> employees;
+
+
 }

@@ -33,28 +33,19 @@ public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank(message = "Full name is required")
-    @Column(nullable = false)
+
     private String fullName; // Họ và tên
 
-    @Column(nullable = false)
     private LocalDate dateOfBirth; // Ngày sinh
 
-    @Column(nullable = false)
     private Boolean gender; // Giới tính (1: Nam, 0: Nữ)
 
-    @Column(nullable = false, unique = true)
     private String nationalID; // Số chứng minh nhân dân
 
-    @Email(message = "Email should be valid")
-    @Column(nullable = false, unique = true)
     private String email; // Email
 
-    @Column(nullable = false)
     private String phoneNumber; // Số điện thoại
 
-    @Column(nullable = false)
     private Boolean activation; // Trạng thái kích hoạt (1: Kích hoạt, 0: Không kích hoạt)
 
     // Mối quan hệ n:1 với EmployeeType
@@ -68,24 +59,33 @@ public class Employee {
     @JoinColumn(name = "major_id", nullable = false)
     @JsonBackReference
     private Major major; // Chuyên ngành của nhân viên
-    
-    // Mối quan hệ 1:1 với Image
-    @OneToOne
-    @JoinColumn(name = "image_id", unique = true)
-    private Image image; // Hình ảnh của nhân viên
-    
+
+    // Mối quan hệ n:1 với Image
+    @ManyToOne
+    @JoinColumn(name = "image_id", nullable = false)
+    @JsonBackReference
+    private Image image; // hình ảnh của nhân viên
+
+    @ManyToOne
+    @JoinColumn(name = "degreeLevel_id", nullable = false)
+    @JsonBackReference
+    private DegreeLevel degreeLevel; // Trình độ của nhân viên
+
+
     // Mối quan hệ 1:N với TeachingAssignment
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<TeachingAssignment> teachingAssignments; // Danh sách phân công giảng dạy
 
-    // Thiết lập mối quan hệ với RegisterCourse
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true) // Đúng
+    @JsonManagedReference
+    private List<TuitionFee> tuitionFees;
+
+
+    // Mối quan hệ 1:N với TeachingAbility
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private Set<RegisterCourse> registerCourses;
-    
-    // Thêm mối quan hệ với Attendance
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Attendance> attendances; // Danh sách attendance của nhân viên
+    private List<TeachingAbility> teachingAbilities; // Danh sách khả năng giảng dạy
+
+
 }
