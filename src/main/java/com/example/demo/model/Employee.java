@@ -86,7 +86,7 @@ public class Employee {
 
     // Mối quan hệ 1:N với TeachingAbility
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "empTeach")
     private List<TeachingAbility> teachingAbilities; // Danh sách khả năng giảng dạy
 
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/course")
-@CrossOrigin(origins = "http://localhost:3000") // Cho phép yêu cầu từ nguồn này
+@CrossOrigin(origins = "*") // Cho phép yêu cầu từ nguồn này
 public class CourseController {
 
     @Autowired
@@ -28,30 +28,30 @@ public class CourseController {
         return ResponseEntity.ok(course);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
-        System.out.println("Received course: " + course);
-        // Tạo mã khóa học tự động
-//        String generatedCourseCode = generateCourseCode(course.getCourseName());
-//        course.setCourseCode(generatedCourseCode);
 
-//        Course existingCourse = iCourseService.createCourse(course);
-        return ResponseEntity.ok(course);
+        // Generate course code automatically
+        String generatedCourseCode = generateCourseCode(course.getCourseName());
+        course.setCourseCode(generatedCourseCode);
+
+        Course existingCourse = iCourseService.createCourse(course);
+        return ResponseEntity.ok(existingCourse);
     }
 
     private String generateCourseCode(String courseName) {
-        // Lấy các ký tự đầu tiên của tên khóa học
+        // Extract the first character of each word in the course name
         String[] words = courseName.split(" ");
         StringBuilder code = new StringBuilder();
         for (String word : words) {
             code.append(word.charAt(0));
         }
 
-        // Lấy số thứ tự mới nhất để tăng dần
-        Long latestId = iCourseService.getLatestCourseId(); // Bạn cần tạo phương thức này trong service để lấy id lớn nhất
-        int newId = latestId != null ? (int)(latestId + 1) : 1; // Tăng số thứ tự lên 1
+        // Get the latest course ID to increment
+        Long latestId = iCourseService.getLatestCourseId();
+        int newId = latestId != null ? (int) (latestId + 1) : 1; // Increment the sequence
 
-        // Tạo mã khóa học với định dạng yêu cầu
+        // Generate the course code in the required format
         String courseCode = code.toString().toUpperCase() + String.format("%02d", newId);
         return courseCode;
     }

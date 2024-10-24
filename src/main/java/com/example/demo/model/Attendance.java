@@ -33,13 +33,13 @@ public class Attendance {
 	
 	@ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
-	@JsonBackReference
+	@JsonBackReference(value = "attendStudent")
 	private Student student; // trường này để tham chiếu đến Student
 
 
 	@ManyToOne
 	@JoinColumn(name = "classSchedule_id", nullable = false)
-	@JsonBackReference
+	@JsonBackReference(value = "attendClass")
 	private ClassSchedule classSchedule; // trường này để tham chiếu đến ClassSchedule
 
 }

@@ -20,7 +20,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,23 +45,25 @@ public class Course {
 
 	@ManyToOne
 	@JoinColumn(name = "session_id")// This prevents infinite recursion
+	@JsonBackReference(value = "sessionCourse") // Thay đổi thành JsonManagedReference
 	private Session session;
 
 	@ManyToOne
 	@JoinColumn(name = "topics_id") // Khóa ngoại liên kết đến Topic
+	@JsonBackReference(value = "topicCourse") // Thay đổi thành JsonManagedReference
 	private Topics topics;
 
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true) // Mối quan hệ n:1
-	@JsonManagedReference
-	private List<ClassSchedule> classSchedules;
-
-	// Mối quan hệ 1:N với TeachingAssignment
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
-	private List<TeachingAssignment> teachingAssignments; // Danh sách phân công giảng dạy
-
-	// Thiết lập mối quan hệ với TuitionFee
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
-	private Set<TuitionFee> tuitionFees;
+//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true) // Mối quan hệ n:1
+//	@JsonManagedReference(value = "scheduleCourse")
+//	private List<ClassSchedule> classSchedules;
+//
+//	// Mối quan hệ 1:N với TeachingAssignment
+//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JsonManagedReference(value = "teachCourse")
+//	private List<TeachingAssignment> teachingAssignments; // Danh sách phân công giảng dạy
+//
+//	// Thiết lập mối quan hệ với TuitionFee
+//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JsonManagedReference(value = "tuitionCourse")
+//	private Set<TuitionFee> tuitionFees;
 }

@@ -36,7 +36,7 @@ public class TopicsServiceImpl implements ITopicsService {
         topic.setTopicsName(subject.getTopicsName());
         topic.setTheoryHours(subject.getTheoryHours());
         topic.setPracticalHours(subject.getPracticalHours());
-        topic.setActived(subject.getActived());
+        topic.setActive(subject.getActive());
         topic.setOriginalPrice(subject.getOriginalPrice());
         topic.setPromotionalPrice(subject.getPromotionalPrice());
         return topicsRepository.save(topic);

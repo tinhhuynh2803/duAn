@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
@@ -35,6 +36,6 @@ public class Session {
 	private String sessionName;
 
 	@OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonIgnore // Ngăn chặn việc serialize thuộc tính courses
+	@JsonManagedReference(value = "sessionCourse") // Chỉ định back-reference tại đây
 	private List<Course> courses;
 }

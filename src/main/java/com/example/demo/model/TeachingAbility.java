@@ -29,13 +29,13 @@ public class TeachingAbility {
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    @JsonBackReference
+    @JsonBackReference(value = "empTeach")
     private Employee employee; // Nhân viên đảm nhận môn học
 
 
     @ManyToOne
     @JoinColumn(name = "topics_id")
-    @JsonBackReference
+    @JsonBackReference(value = "teachTopic")
     private Topics topics; // Môn học
 
     // Mối quan hệ 1:N với TeachingAssignment

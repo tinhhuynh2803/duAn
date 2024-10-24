@@ -48,6 +48,6 @@ public class TuitionFee {
 
 	@ManyToOne
     @JoinColumn(name = "course_id") // tên cột trong bảng
-    @JsonBackReference
+    @JsonBackReference(value = "tuitionCourse")
     private Course course;
 }

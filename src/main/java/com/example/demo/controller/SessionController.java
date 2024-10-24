@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/session")
+@CrossOrigin(origins = "http://localhost:3000") // Cho phép yêu cầu từ nguồn này
 public class SessionController {
 
     @Autowired

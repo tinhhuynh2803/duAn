@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
@@ -27,7 +28,6 @@ public class Topics {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 
 	private String topicsCode;
 
@@ -37,17 +37,16 @@ public class Topics {
 
 	private Integer practicalHours;
 
-	private Boolean actived;
+	private Boolean active;
 	private  double originalPrice;
 	private double PromotionalPrice;
 
-	
 	@OneToMany(mappedBy = "topics", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonIgnore // Ngăn chặn việc serialize thuộc tính courses
+	@JsonManagedReference(value = "topicCourse") // Chỉ định back-reference tại đây
 	private List<Course> courses;
-	
+
 	// Mối quan hệ 1:N với SubjectAssignment
     @OneToMany(mappedBy = "topics", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+	@JsonManagedReference(value = "teachTopic")
     private List<TeachingAbility> teachingAbilities; // Danh sách phân công môn học
 }

@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/subject")
+@RequestMapping("/api/topics")
+@CrossOrigin(origins = "http://localhost:3000") // Cho phép yêu cầu từ nguồn này
 public class TopicsController {
 
     @Autowired

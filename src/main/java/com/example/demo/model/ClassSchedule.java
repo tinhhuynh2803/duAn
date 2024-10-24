@@ -36,18 +36,18 @@ public class ClassSchedule {
 
 
 	@OneToMany(mappedBy = "classSchedule", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+	@JsonManagedReference(value = "attendClass")
 	private List<Attendance> attendances;
 
 
 	@ManyToOne
 	@JoinColumn(name = "classroom_id")
-	@JsonBackReference
+	@JsonBackReference(value = "scheduleRoom")
 	private ClassRoom classRoom;
 	
 	@ManyToOne // Nhiều schedule có thể thuộc về một course
     @JoinColumn(name = "course_id") // Khóa ngoại liên kết đến Course
-	@JsonBackReference
+	@JsonBackReference(value = "scheduleCourse")
     private Course course; // Liên kết với Course
 	
 }

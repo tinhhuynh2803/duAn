@@ -74,6 +74,6 @@ public class Student {
     
     // Thêm mối quan hệ với Attendance
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "attendStudent")
     private List<Attendance> attendances; // Danh sách attendance của sinh viên
 }
