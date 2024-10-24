@@ -9,5 +9,6 @@ public interface ICourseService {
     Course getCourseById(Long id);
     Course createCourse(Course course);
     Course updateCourse(Long id, Course course);
+    Long  getLatestCourseId();
     void deleteCourse(Long id);
 }

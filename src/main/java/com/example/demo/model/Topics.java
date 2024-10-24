@@ -43,7 +43,7 @@ public class Topics {
 
 	
 	@OneToMany(mappedBy = "topics", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+	@JsonIgnore // Ngăn chặn việc serialize thuộc tính courses
 	private List<Course> courses;
 	
 	// Mối quan hệ 1:N với SubjectAssignment

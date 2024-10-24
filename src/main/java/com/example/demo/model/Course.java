@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,12 +45,11 @@ public class Course {
 	private Boolean activate;
 
 	@ManyToOne
-	@JsonBackReference // This prevents infinite recursion
+	@JoinColumn(name = "session_id")// This prevents infinite recursion
 	private Session session;
 
 	@ManyToOne
 	@JoinColumn(name = "topics_id") // Khóa ngoại liên kết đến Topic
-	@JsonBackReference
 	private Topics topics;
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true) // Mối quan hệ n:1

@@ -25,9 +25,10 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     @Override
-    public Course createCourse(Course course) {
+    public Course createCourse(Course course) { return courseRepository.save(course); }
 
-        return courseRepository.save(course);
+    public Long getLatestCourseId() {
+        return courseRepository.findTopByOrderByIdDesc().getId(); // Giả sử bạn đã có phương thức này trong repository
     }
 
     @Override
