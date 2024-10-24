@@ -53,11 +53,7 @@ public class Student {
     private Boolean activate; // Trạng thái kích hoạt (1: Kích hoạt, 0: Không kích hoạt)
 
     private String studentCode; // Mã sinh viên
-    
-    @ManyToOne
-    @JoinColumn(name = "degreelevel_id", nullable = false)
-    @JsonBackReference
-    private DegreeLevel degreeLevel; // Cấp độ học
+
 
     // Mối quan hệ n:1 với Image
     @ManyToOne

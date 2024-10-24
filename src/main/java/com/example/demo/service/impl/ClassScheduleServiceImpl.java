@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClassClassScheduleServiceImpl implements IClassScheduleService {
+public class ClassScheduleServiceImpl implements IClassScheduleService {
 
     @Autowired
     private ClassScheduleRepository classScheduleRepository;

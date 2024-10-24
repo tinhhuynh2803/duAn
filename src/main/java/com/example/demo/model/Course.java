@@ -43,7 +43,7 @@ public class Course {
 	private Boolean activate;
 
 	@ManyToOne
-	@JoinColumn(name = "session_id") // Khóa ngoại liên kết đến ClassSession
+	@JsonBackReference // This prevents infinite recursion
 	private Session session;
 
 	@ManyToOne

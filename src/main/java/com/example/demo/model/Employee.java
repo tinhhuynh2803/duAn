@@ -48,6 +48,8 @@ public class Employee {
 
     private Boolean activation; // Trạng thái kích hoạt (1: Kích hoạt, 0: Không kích hoạt)
 
+    private String address;
+
     // Mối quan hệ n:1 với EmployeeType
     @ManyToOne
     @JoinColumn(name = "employee_type_id", nullable = false)
