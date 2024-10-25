@@ -44,6 +44,4 @@ public class TeachingAbility {
     @JsonManagedReference(value = "assign_ability")
     private List<TeachingAssignment> teachingAssignments; // Danh sách phân công giảng dạy
 
-
-
 }
