@@ -28,7 +28,7 @@ public class TeachingAssignment {
 	// Mối quan hệ N:1 với Employee
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    @JsonBackReference
+    @JsonBackReference(value = "emp_teaching")
     private Employee employee; // Nhân viên đảm nhận phân công giảng dạy
 
     // Mối quan hệ N:1 với Course
@@ -40,7 +40,7 @@ public class TeachingAssignment {
     // Mối quan hệ N:1 với SubjectAssignment
     @ManyToOne
     @JoinColumn(name = "teachingAbility_id") // Khóa ngoại liên kết đến SubjectAssignment
-    @JsonBackReference
+    @JsonBackReference(value = "assign_ability")
     private TeachingAbility teachingAbility; // Môn học được phân công giảng dạy
 
 }

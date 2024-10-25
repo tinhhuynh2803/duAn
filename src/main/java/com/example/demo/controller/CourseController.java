@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.model.Course;
 import com.example.demo.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,32 +31,38 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<Course> createCourse(@RequestBody Course course) {
+    public ResponseEntity<?> createCourse(@RequestBody Course course) {
+        try {
+            String generatedCourseCode = generateCourseCode(course.getCourseName());
+            course.setCourseCode(generatedCourseCode);
 
-        // Generate course code automatically
-        String generatedCourseCode = generateCourseCode(course.getCourseName());
-        course.setCourseCode(generatedCourseCode);
-
-        Course existingCourse = iCourseService.createCourse(course);
-        return ResponseEntity.ok(existingCourse);
+            Course existingCourse = iCourseService.createCourse(course);
+            return ResponseEntity.ok(existingCourse);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Course code already exists.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred: " + e.getMessage());
+        }
     }
 
+
     private String generateCourseCode(String courseName) {
-        // Extract the first character of each word in the course name
+        // Tạo mã từ các ký tự đầu tiên của các từ trong tên khóa học
         String[] words = courseName.split(" ");
         StringBuilder code = new StringBuilder();
         for (String word : words) {
             code.append(word.charAt(0));
         }
 
-        // Get the latest course ID to increment
+        // Lấy ID khóa học mới nhất
         Long latestId = iCourseService.getLatestCourseId();
-        int newId = latestId != null ? (int) (latestId + 1) : 1; // Increment the sequence
+        int newId = latestId != null ? (int) (latestId + 1) : 1; // Tăng ID
 
-        // Generate the course code in the required format
-        String courseCode = code.toString().toUpperCase() + String.format("%02d", newId);
-        return courseCode;
+        // Tạo mã khóa học
+        return code.toString().toUpperCase() + String.format("%02d", newId);
     }
+
 
 
 

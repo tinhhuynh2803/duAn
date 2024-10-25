@@ -53,34 +53,34 @@ public class Employee {
     // Mối quan hệ n:1 với EmployeeType
     @ManyToOne
     @JoinColumn(name = "employee_type_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "emp_type")
     private EmployeeType employeeType; // Kiểu nhân viên
     
     // Mối quan hệ n:1 với Major
     @ManyToOne
     @JoinColumn(name = "major_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "emp_major")
     private Major major; // Chuyên ngành của nhân viên
 
     // Mối quan hệ n:1 với Image
     @ManyToOne
     @JoinColumn(name = "image_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "emp_image")
     private Image image; // hình ảnh của nhân viên
 
     @ManyToOne
     @JoinColumn(name = "degreeLevel_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "emp_degree")
     private DegreeLevel degreeLevel; // Trình độ của nhân viên
 
 
     // Mối quan hệ 1:N với TeachingAssignment
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "emp_teaching")
     private List<TeachingAssignment> teachingAssignments; // Danh sách phân công giảng dạy
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true) // Đúng
-    @JsonManagedReference
+    @JsonManagedReference(value = "emp_tuition")
     private List<TuitionFee> tuitionFees;
 
 

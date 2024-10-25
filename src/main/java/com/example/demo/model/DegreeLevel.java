@@ -33,6 +33,6 @@ public class DegreeLevel {
 	private String note;
 
 	@OneToMany(mappedBy = "degreeLevel", cascade = CascadeType.ALL, orphanRemoval = true) // Mối quan hệ 1:N với Employee
-	@JsonManagedReference
+	@JsonManagedReference(value = "emp_degree")
 	private List<Employee> employees; // Danh sách nhân viên
 }

@@ -24,12 +24,12 @@ public class Image {
 	private String imageUrl;
 
     @OneToMany(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "student_image")
     private List<Student> students;
 
 
     @OneToMany(mappedBy = "image", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "emp_image")
     private List<Employee> employees;
 
 

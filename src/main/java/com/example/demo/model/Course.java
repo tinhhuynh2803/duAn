@@ -53,17 +53,17 @@ public class Course {
 	@JsonBackReference(value = "topicCourse") // Thay đổi thành JsonManagedReference
 	private Topics topics;
 
-//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true) // Mối quan hệ n:1
-//	@JsonManagedReference(value = "scheduleCourse")
-//	private List<ClassSchedule> classSchedules;
-//
-//	// Mối quan hệ 1:N với TeachingAssignment
-//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JsonManagedReference(value = "teachCourse")
-//	private List<TeachingAssignment> teachingAssignments; // Danh sách phân công giảng dạy
-//
-//	// Thiết lập mối quan hệ với TuitionFee
-//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JsonManagedReference(value = "tuitionCourse")
-//	private Set<TuitionFee> tuitionFees;
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true) // Mối quan hệ n:1
+	@JsonManagedReference(value = "scheduleCourse")
+	private List<ClassSchedule> classSchedules;
+
+	// Mối quan hệ 1:N với TeachingAssignment
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference(value = "teachCourse")
+	private List<TeachingAssignment> teachingAssignments; // Danh sách phân công giảng dạy
+
+	// Thiết lập mối quan hệ với TuitionFee
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference(value = "tuitionCourse")
+	private Set<TuitionFee> tuitionFees;
 }

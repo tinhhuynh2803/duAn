@@ -58,18 +58,18 @@ public class Student {
     // Mối quan hệ n:1 với Image
     @ManyToOne
     @JoinColumn(name = "image_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "student_image")
     private Image image; // hình ảnh của nhân viên
     
     // Thiết lập mối quan hệ n:1 với CategoryStudent
     @ManyToOne
     @JoinColumn(name = "student_type_id")
-    @JsonBackReference
+    @JsonBackReference(value = "student_type")
     private StudentType studentType; // Danh mục sinh viên
     
     // Thiết lập mối quan hệ với RegisterCourse
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value = "student_tuition")
     private Set<TuitionFee> registerCours;
     
     // Thêm mối quan hệ với Attendance

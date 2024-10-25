@@ -28,17 +28,23 @@ public class CourseServiceImpl implements ICourseService {
     public Course createCourse(Course course) { return courseRepository.save(course); }
 
     public Long getLatestCourseId() {
-        return courseRepository.findTopByOrderByIdDesc().getId(); // Giả sử bạn đã có phương thức này trong repository
+        List<Course> courses = courseRepository.findTopCoursesOrderByIdDesc();
+        if (!courses.isEmpty()) {
+            return courses.get(0).getId();
+        }
+        return 0L; // Trả về 0 nếu không có khóa học nào
     }
+
 
     @Override
     public Course updateCourse(Long id, Course course) {
         Course existingCourse = courseRepository.findById(id).orElseThrow();
-        existingCourse.setCourseCode(course.getCourseCode());
         existingCourse.setCourseName(course.getCourseName());
         existingCourse.setStartDate(course.getStartDate());
         existingCourse.setEndDate(course.getEndDate());
-
+        existingCourse.setTotalStudent(course.getTotalStudent());
+        existingCourse.setSession(course.getSession());
+        existingCourse.setTopics(course.getTopics());
         return courseRepository.save(existingCourse);
     }
 

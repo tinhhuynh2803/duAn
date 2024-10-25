@@ -38,12 +38,12 @@ public class TuitionFee {
 	
 	@ManyToOne
     @JoinColumn(name = "student_id") // tên cột trong bảng
-    @JsonBackReference
+    @JsonBackReference(value = "student_tuition")
     private Student student;
 	
 	@ManyToOne
     @JoinColumn(name = "employee_id") // tên cột trong bảng
-    @JsonBackReference
+    @JsonBackReference(value = "emp_tuition")
     private Employee employee;
 
 	@ManyToOne

@@ -30,6 +30,6 @@ public class Major {
 	
 	// Thiết lập mối quan hệ 1:N với Employee
     @OneToMany(mappedBy = "major", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+	@JsonManagedReference(value = "emp_major")
     private List<Employee> employees; // Danh sách nhân viên thuộc chuyên ngành này
 }

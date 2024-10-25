@@ -29,6 +29,6 @@ public class StudentType {
 	
 	// Thiết lập mối quan hệ 1:n với Student
 	@OneToMany(mappedBy = "studentType", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+	@JsonManagedReference(value = "student_type")
 	private List<Student> students;	// Danh sách sinh viên thuộc danh mục này
 }

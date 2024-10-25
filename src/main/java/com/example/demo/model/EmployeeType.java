@@ -30,6 +30,6 @@ public class EmployeeType {
 	
 	// Thiết lập mối quan hệ 1:N với Employee
     @OneToMany(mappedBy = "employeeType", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+	@JsonManagedReference(value = "emp_type")
     private List<Employee> employees;
 }
