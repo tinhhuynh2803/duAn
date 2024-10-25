@@ -13,7 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/course")
-@CrossOrigin(origins = "*") // Cho phép yêu cầu từ nguồn này
+@CrossOrigin(origins = "http://localhost:3000")
+ // Cho phép yêu cầu từ nguồn này
 public class CourseController {
 
     @Autowired
